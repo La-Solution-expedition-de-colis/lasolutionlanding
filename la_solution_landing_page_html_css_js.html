@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>La Solution — Passerelle d’expédition & achat assisté</title>
+  <meta name="description" content="Votre passerelle d’expédition de colis et d’achat assisté entre l’Europe et l’Afrique. Suivi en temps réel, paiement sécurisé, support client intégré." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0f172a; /* slate-900 */
+      --muted:#64748b; /* slate-500 */
+      --line:#e2e8f0; /* slate-200 */
+      --primary:#ff4d6d; /* CTA */
+      --primary-600:#e64564;
+      --primary-700:#d13d5a;
+      --success:#16a34a;
+      --warning:#f59e0b;
+      --danger:#ef4444;
+      --card:#ffffff;
+      --shadow:0 10px 30px rgba(2,6,23,.08);
+      --radius:18px;
+      --radius-lg:24px;
+      --container:1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    img{max-width:100%;display:block}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--container);margin:0 auto;padding:0 24px}
+    .btn{display:inline-flex;align-items:center;gap:.6rem;padding:.9rem 1.2rem;border-radius:999px;border:1px solid transparent;font-weight:600;line-height:1;cursor:pointer;transition:.2s}
+    .btn-primary{background:var(--primary);color:#fff;box-shadow:0 6px 18px rgba(255,77,109,.25)}
+    .btn-primary:hover{background:var(--primary-600);transform:translateY(-1px)}
+    .btn-ghost{background:#fff;border-color:var(--line)}
+    header{position:sticky;top:0;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(10px);border-bottom:1px solid rgba(226,232,240,.6);z-index:20}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+    .brand{display:flex;align-items:center;gap:.75rem}
+    .logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#111 0%,#333 100%);display:grid;place-items:center;color:#fff;font-weight:800}
+    .brand h1{font-size:1.05rem;margin:0;letter-spacing:.2px}
+    .nav-actions{display:flex;align-items:center;gap:.6rem}
+
+    /* Hero */
+    .hero{padding:72px 0 40px}
+    .hero h2{font-size:clamp(2rem,4vw,3.25rem);line-height:1.1;margin:0 0 16px;text-align:center}
+    .hero p{color:var(--muted);text-align:center;max-width:800px;margin:0 auto 22px}
+    .hero-cta{display:flex;justify-content:center;margin-top:8px}
+
+    /* Mosaic strip */
+    .mosaic{margin:28px auto 8px;max-width:980px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .tile{width:120px;height:120px;border-radius:22px;background:#f1f5f9;position:relative;box-shadow:var(--shadow);overflow:hidden}
+    .tile:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.0),rgba(0,0,0,.06));}
+    .tile img{object-fit:cover;width:100%;height:100%}
+
+    /* Logos row */
+    .logos{display:grid;grid-template-columns:repeat(5,1fr);gap:24px;align-items:center;justify-items:center;margin:36px auto 0;max-width:860px;color:#94a3b8}
+    .logo-pill{display:flex;align-items:center;gap:.6rem;opacity:.75}
+
+    /* Two-column feature */
+    .feature{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;margin:72px 0}
+    .feature h3{font-size:clamp(1.6rem,3vw,2.1rem);line-height:1.2;margin:0 0 10px}
+    .feature p{color:var(--muted)}
+    .feature .shot{border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow)}
+
+    /* Notifications + bullets */
+    .notif{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin:10px 0 80px}
+    .feed{display:flex;flex-direction:column;gap:14px}
+    .feed-item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 14px 12px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;box-shadow:0 18px 60px rgba(2,6,23,.06)}
+    .feed-item .dot{width:28px;height:28px;border-radius:10px;background:linear-gradient(135deg,#ff6b6b,#ff8fab);display:grid;place-items:center;color:#fff;font-weight:700}
+    .feed-item small{color:#94a3b8}
+    .bullets{display:grid;gap:16px}
+    .b-row{display:grid;grid-template-columns:auto 1fr;gap:12px}
+    .b-ic{width:28px;height:28px;border-radius:50%;border:2px solid #000;display:grid;place-items:center;font-weight:700}
+    .b-title{font-weight:700;margin-bottom:4px}
+    .b-text{color:var(--muted)}
+
+    /* Tracking section */
+    .section-title{margin:0 0 8px;text-align:center;font-size:1.8rem}
+    .section-sub{margin:0 auto 26px;text-align:center;color:var(--muted);max-width:720px}
+
+    .stats{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:22px 0}
+    .stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+    .stat .n{font-weight:800;font-size:1.3rem}
+    .stat .l{color:#94a3b8;font-size:.9rem}
+
+    .card{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}
+    .table-wrap{padding:14px}
+    .table-scroll{overflow:auto;-webkit-overflow-scrolling:touch}
+
+    .toolbar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .toolbar input{flex:1;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+    .toolbar .filter{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff}
+
+    table{width:100%;border-collapse:separate;border-spacing:0}
+    thead th{font-size:.9rem;color:#475569;text-align:left;padding:12px;border-bottom:1px solid var(--line)}
+    tbody td{padding:12px;border-bottom:1px solid #f1f5f9;color:#334155}
+    tbody tr:last-child td{border-bottom:none}
+    .status{display:inline-flex;align-items:center;gap:.4rem;border-radius:999px;padding:.25rem .6rem;font-weight:600;font-size:.8rem}
+    .s-pending{background:#fef3c7;color:#92400e}
+    .s-live{background:#dcfce7;color:#166534}
+    .s-cancel{background:#fee2e2;color:#991b1b}
+    .table-actions .btn{padding:.5rem .8rem;font-weight:600}
+
+    /* Testimonials */
+    .testimonials{margin:70px 0}
+    .t-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+    .t-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:var(--shadow)}
+    .t-head{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+    .avatar{width:42px;height:42px;border-radius:50%;background:#e2e8f0}
+    .who{font-weight:700}
+    .where{color:#94a3b8;font-size:.9rem}
+    .t-text{color:#475569}
+
+    /* Footer */
+    footer{background:#111827;color:#e5e7eb;margin-top:70px}
+    .foot{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:24px;padding:36px 0}
+    .foot .brand h1{color:#fff}
+    .foot p{color:#9ca3af}
+    .f-col h4{margin:0 0 10px}
+    .f-col a{display:block;color:#cbd5e1;padding:6px 0;opacity:.9}
+    .subfoot{border-top:1px solid rgba(148,163,184,.2);padding:14px 0;color:#94a3b8;font-size:.9rem}
+
+    /* Responsive */
+    @media (max-width: 1080px){
+      .feature{grid-template-columns:1fr;gap:24px}
+      .notif{grid-template-columns:1fr}
+      .t-grid{grid-template-columns:1fr 1fr}
+      .stats{grid-template-columns:repeat(3,1fr)}
+      .logos{grid-template-columns:repeat(3,1fr)}
+      .foot{grid-template-columns:1fr 1fr}
+    }
+    @media (max-width: 640px){
+      .container{padding:0 16px}
+      .nav{height:62px;flex-wrap:wrap;row-gap:8px}
+      .nav-actions{width:100%;justify-content:center}
+      .nav .btn{padding:.7rem .9rem}
+      .mosaic{gap:12px}
+      .tile{width:100px;height:100px;border-radius:18px}
+      .logos{grid-template-columns:repeat(2,1fr)}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .t-grid{grid-template-columns:1fr}
+      /* Turn table into stacked cards */
+      .table-scroll{overflow:visible}
+      table{display:block;width:100%}
+      thead{display:none}
+      tbody{display:block}
+      tbody tr{display:block;background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin-bottom:10px}
+      tbody td{display:grid;grid-template-columns:120px 1fr;gap:8px;border:none;padding:8px 0}
+      tbody td:nth-child(1)::before{content:"Réf Commande"}
+      tbody td:nth-child(2)::before{content:"Produit"}
+      tbody td:nth-child(3)::before{content:"Montant"}
+      tbody td:nth-child(4)::before{content:"Date"}
+      tbody td:nth-child(5)::before{content:"Statut"}
+      tbody td:nth-child(6)::before{content:"Action"}
+      .table-actions{text-align:right}
+      .foot{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">LS</div>
+        <h1>La Solution</h1>
+      </div>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="#">Se connecter</a>
+        <a class="btn btn-primary" href="#">S’inscrire</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero container">
+      <h2>Votre passerelle d’expédition de<br/> colis et d’achat assisté</h2>
+      <div class="mosaic" aria-hidden="true">
+        <div class="tile"><img src="assets/tile-1.jpg" alt=""></div>
+        <div class="tile"><img src="assets/tile-2.jpg" alt=""></div>
+        <div class="tile"><img src="assets/tile-3.jpg" alt=""></div>
+        <div class="tile"><img src="assets/tile-4.jpg" alt=""></div>
+        <div class="tile"><img src="assets/tile-5.jpg" alt=""></div>
+        <div class="tile"><img src="assets/tile-6.jpg" alt=""></div>
+        <div class="tile"><img src="assets/tile-7.jpg" alt=""></div>
+      </div>
+      <p>Faites vos achats ou envoyez un colis à vos proches en toute confiance. On s’occupe de tout.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#tracking">Commencez maintenant</a>
+      </div>
+
+      <div class="logos">
+        <div class="logo-pill">Amazon</div>
+        <div class="logo-pill">AliExpress</div>
+        <div class="logo-pill">Zara</div>
+        <div class="logo-pill">IKEA</div>
+        <div class="logo-pill">Shein</div>
+      </div>
+    </section>
+
+    <!-- FEATURE 2-col -->
+    <section class="container feature">
+      <div>
+        <h3>Une solution rapide, fiable pour transporter ou acheter depuis l’Europe vers l’Afrique.</h3>
+        <p>Achats assistés, expédition de colis, paiement sécurisé et suivi en temps réel : notre plateforme simplifie toutes les étapes, du panier à la livraison.</p>
+      </div>
+      <div class="shot">
+        <img src="assets/feature-hero.jpg" alt="Photo d’une cliente entourée de cartons (Amazon, IKEA, Shein)…"/>
+      </div>
+    </section>
+
+    <!-- Notifications + Bullets -->
+    <section class="container notif">
+      <div class="feed">
+        <div class="feed-item">
+          <div class="dot">Y</div>
+          <div>
+            <div style="font-weight:700">Vous venez de valider un paiement de 25,00€</div>
+            <small>pour un achat de bluetooth sur Amazon</small>
+          </div>
+          <small>17:26</small>
+        </div>
+        <div class="feed-item">
+          <div class="dot">Y</div>
+          <div>
+            <div style="font-weight:700">Votre commande est en préparation</div>
+            <small>Réf. CMD-84617</small>
+          </div>
+          <small>17:41</small>
+        </div>
+        <div class="feed-item">
+          <div class="dot">Y</div>
+          <div>
+            <div style="font-weight:700">Colis pris en charge</div>
+            <small>Centre logistique Paris</small>
+          </div>
+          <small>18:05</small>
+        </div>
+      </div>
+      <div class="bullets">
+        <div class="b-row">
+          <div class="b-ic">•</div>
+          <div>
+            <div class="b-title">Achat assisté</div>
+            <div class="b-text">Faites vos achats en Europe sans bouger. Vous commandez et on vous livre.</div>
+          </div>
+        </div>
+        <div class="b-row">
+          <div class="b-ic">•</div>
+          <div>
+            <div class="b-title">Paiement</div>
+            <div class="b-text">Payez en toute sécurité depuis l’Afrique pour vos achats.</div>
+          </div>
+        </div>
+        <div class="b-row">
+          <div class="b-ic">•</div>
+          <div>
+            <div class="b-title">Suivi en temps réel</div>
+            <div class="b-text">Suivez votre commande ou colis à chaque étape, de l’Europe jusqu’à la livraison.</div>
+          </div>
+        </div>
+        <div class="b-row">
+          <div class="b-ic">•</div>
+          <div>
+            <div class="b-title">Support client intégré</div>
+            <div class="b-text">Un support intégré pour répondre à toutes vos questions rapidement.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tracking -->
+    <section id="tracking" class="container" style="margin-top:10px">
+      <h3 class="section-title">Suivez votre commande jusqu’à la livraison</h3>
+      <p class="section-sub">Faites vos achats ou envoyez un colis à vos proches en toute confiance, on s’occupe de tout.</p>
+
+      <div class="card" style="padding:10px;border:1px dashed #fda4af">
+        <div class="container" style="padding:0">
+          <div class="stats">
+            <div class="stat"><div class="n">12 <small>+35%</small></div><div class="l">Commandes totales</div></div>
+            <div class="stat"><div class="n">2</div><div class="l">Commandes en cours</div></div>
+            <div class="stat"><div class="n">7</div><div class="l">Commandes terminées</div></div>
+            <div class="stat"><div class="n">2</div><div class="l">Commandes livrées</div></div>
+            <div class="stat"><div class="n">3</div><div class="l">Commandes annulées</div></div>
+          </div>
+
+          <div class="table-wrap">
+            <div class="toolbar">
+              <input id="search" type="text" placeholder="Rechercher une commande… (ex: CMD-84617, iPhone)" />
+              <button class="filter">Filtrer</button>
+            </div>
+            <div class="table-scroll" style="overflow:auto">
+              <table id="orders">
+                <thead>
+                  <tr>
+                    <th>Réf Commande</th>
+                    <th>Produit</th>
+                    <th>Montant</th>
+                    <th>Date</th>
+                    <th>Statut</th>
+                    <th style="width:120px">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CMD-84617</td>
+                    <td>iPhone 13, Nike AirMax</td>
+                    <td>765,80€</td>
+                    <td>12 juin 2025</td>
+                    <td><span class="status s-pending">En attente</span></td>
+                    <td class="table-actions"><a class="btn btn-ghost" href="#">Détails</a></td>
+                  </tr>
+                  <tr>
+                    <td>CMD-84618</td>
+                    <td>Casque Bluetooth</td>
+                    <td>25,00€</td>
+                    <td>12 juin 2025</td>
+                    <td><span class="status s-live">Livré</span></td>
+                    <td class="table-actions"><a class="btn btn-ghost" href="#">Détails</a></td>
+                  </tr>
+                  <tr>
+                    <td>CMD-84619</td>
+                    <td>Sneakers</td>
+                    <td>89,90€</td>
+                    <td>12 juin 2025</td>
+                    <td><span class="status s-live">Livré</span></td>
+                    <td class="table-actions"><a class="btn btn-ghost" href="#">Détails</a></td>
+                  </tr>
+                  <tr>
+                    <td>CMD-84620</td>
+                    <td>Lampe de chevet</td>
+                    <td>39,90€</td>
+                    <td>11 juin 2025</td>
+                    <td><span class="status s-cancel">Annulé</span></td>
+                    <td class="table-actions"><a class="btn btn-ghost" href="#">Détails</a></td>
+                  </tr>
+                  <tr>
+                    <td>CMD-84621</td>
+                    <td>Manteau Zara</td>
+                    <td>129,00€</td>
+                    <td>10 juin 2025</td>
+                    <td><span class="status s-pending">En attente</span></td>
+                    <td class="table-actions"><a class="btn btn-ghost" href="#">Détails</a></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="container testimonials">
+      <h3 class="section-title">Témoignages</h3>
+      <p class="section-sub">Faites vos achats ou envoyez un colis à vos proches en toute confiance, on s’occupe de tout.</p>
+      <div class="t-grid">
+        <article class="t-card">
+          <div class="t-head"><div class="avatar"></div><div><div class="who">André</div><div class="where">Cotonou, Bénin</div></div></div>
+          <div class="t-text">J’ai commandé un sac en Europe, et je l’ai reçu en 10 jours à Cotonou. Le suivi était clair et le service client super réactif. Je recommande à 100 %.</div>
+        </article>
+        <article class="t-card">
+          <div class="t-head"><div class="avatar"></div><div><div class="who">Aïcha</div><div class="where">Lomé, Togo</div></div></div>
+          <div class="t-text">Le service d’achat assisté est juste génial. Je choisis ce que je veux, ils commandent et je reçois tout sans stress. C’est comme avoir un ami sur place.</div>
+        </article>
+        <article class="t-card">
+          <div class="t-head"><div class="avatar"></div><div><div class="who">Hamid</div><div class="where">Paris, France</div></div></div>
+          <div class="t-text">En tant que ShipLocker, je gagne de l’argent en referant chez moi. L’application est bien faite, et les paiements sont rapides.</div>
+        </article>
+        <article class="t-card">
+          <div class="t-head"><div class="avatar"></div><div><div class="who">Chantal</div><div class="where">Abidjan, Côte d’Ivoire</div></div></div>
+          <div class="t-text">J’ai récupéré ma commande sans souci, livrée par un partenaire relais près de chez moi. Très pratique et sécurisé !</div>
+        </article>
+        <article class="t-card">
+          <div class="t-head"><div class="avatar"></div><div><div class="who">Jean‑Marc</div><div class="where">Bruxelles, Belgique</div></div></div>
+          <div class="t-text">Une vraie passerelle entre l’Europe et l’Afrique. J’ai pu expédier mes colis sans passer par des services classiques, et avec beaucoup plus de souplesse.</div>
+        </article>
+        <article class="t-card">
+          <div class="t-head"><div class="avatar"></div><div><div class="who">Fatou</div><div class="where">Dakar, Sénégal</div></div></div>
+          <div class="t-text">J’ai pu envoyer un colis à ma famille en toute simplicité. J’ai adoré la possibilité de suivre chaque étape, et les délais étaient raisonnables.</div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div>
+        <div class="brand" style="margin-bottom:10px">
+          <div class="logo">LS</div>
+          <h1>La Solution</h1>
+        </div>
+        <p>Votre passerelle logistique vous offre l’opportunité de faire des achats et expéditions sans peine.</p>
+      </div>
+      <div class="f-col">
+        <h4>Accueil</h4>
+        <a href="#">Services</a>
+        <a href="#tracking">Suivi</a>
+        <a href="#">Tarifs</a>
+      </div>
+      <div class="f-col">
+        <h4>Ressources</h4>
+        <a href="#">FAQ</a>
+        <a href="#">Support client</a>
+        <a href="#">Centre de paiement</a>
+      </div>
+      <div class="f-col">
+        <h4>Légal</h4>
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">Conditions d’utilisation</a>
+      </div>
+    </div>
+    <div class="subfoot">
+      <div class="container">© 2025 La Solution · Tous droits réservés.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Filtre de recherche sur le tableau des commandes
+    (function(){
+      const input = document.querySelector('#search');
+      const rows = Array.from(document.querySelectorAll('#orders tbody tr'));
+      if(!input) return;
+      input.addEventListener('input', () => {
+        const q = input.value.toLowerCase();
+        rows.forEach(tr => {
+          const txt = tr.innerText.toLowerCase();
+          tr.style.display = txt.includes(q) ? '' : 'none';
+        });
+      });
+    })();
+
+    // Smooth scroll when clicking CTA
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if(el){
+          e.preventDefault();
+          el.scrollIntoView({behavior:'smooth',block:'start'});
+        }
+      });
+    });
+  </script>
+</body>
+</html>
