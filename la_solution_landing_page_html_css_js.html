@@ -78,6 +78,16 @@
     .b-title{font-weight:700;margin-bottom:4px}
     .b-text{color:var(--muted)}
 
+    /* Contact form */
+    .contact{margin:72px 0}
+    .form-card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:20px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .field label{display:block;font-weight:600;margin:6px 0}
+    .field input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none;transition:border-color .2s, box-shadow .2s}
+    .field input:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(255,77,109,.15)}
+    .form-actions{display:flex;align-items:center;gap:12px;margin-top:12px}
+    .form-status{color:var(--muted)}
+
     /* Tracking section */
     .section-title{margin:0 0 8px;text-align:center;font-size:1.8rem}
     .section-sub{margin:0 auto 26px;text-align:center;color:var(--muted);max-width:720px}
@@ -143,6 +153,7 @@
       .logos{grid-template-columns:repeat(2,1fr)}
       .stats{grid-template-columns:repeat(2,1fr)}
       .t-grid{grid-template-columns:1fr}
+      .form-grid{grid-template-columns:1fr}
       /* Turn table into stacked cards */
       .table-scroll{overflow:visible}
       table{display:block;width:100%}
@@ -184,7 +195,7 @@
       </div>
       <p>Faites vos achats ou envoyez un colis à vos proches en toute confiance. On s’occupe de tout.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary" href="#tracking">Commencez maintenant</a>
+        <a class="btn btn-primary" href="#contact">Commencez maintenant</a>
       </div>
 
       <div class="logos">
@@ -348,6 +359,38 @@
       </div>
     </section>
 
+    <!-- Contact -->
+    <section id="contact" class="container contact">
+      <h3 class="section-title">Contactez‑nous</h3>
+      <p class="section-sub">Laissez vos coordonnées et notre équipe vous recontacte rapidement.</p>
+      <div class="form-card">
+        <form id="contactForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="lastName">Nom</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Votre nom" required />
+            </div>
+            <div class="field">
+              <label for="firstName">Prénom</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Votre prénom" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="ex: nom@domaine.com" required />
+            </div>
+            <div class="field">
+              <label for="phone">Téléphone</label>
+              <input type="tel" id="phone" name="phone" placeholder="ex: +229 12 34 56 78" required />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+            <span id="formStatus" class="form-status" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+    </section>
+
     <!-- Testimonials -->
     <section class="container testimonials">
       <h3 class="section-title">Témoignages</h3>
@@ -439,6 +482,27 @@
         }
       });
     });
+
+    // Soumission du formulaire de contact (client‑side)
+    (function(){
+      const form = document.getElementById('contactForm');
+      if(!form) return;
+      const status = document.getElementById('formStatus');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if(!form.checkValidity()){
+          status.textContent = 'Veuillez compléter tous les champs.';
+          status.style.color = 'var(--danger)';
+          form.reportValidity();
+          return;
+        }
+        const data = Object.fromEntries(new FormData(form).entries());
+        console.log('Formulaire de contact:', data);
+        status.textContent = 'Merci, nous vous recontacterons rapidement.';
+        status.style.color = 'var(--success)';
+        form.reset();
+      });
+    })();
   </script>
 </body>
 </html>
